@@ -123,10 +123,10 @@ internal sealed class Engine : IDisposable
         return entry;
     }
 
-    public FileDBStream OpenRead(Guid id)
+    public BlobDatabaseStream OpenRead(Guid id)
     {
         // Open a FileDBStream and return to user
-        var file = new FileDBStream(this, id);
+        var file = new BlobDatabaseStream(this, id);
 
         // If FileInfo is null, ID was not found
         return file.FileInfo == null ? null : file;

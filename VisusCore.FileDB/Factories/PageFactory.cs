@@ -13,7 +13,7 @@ internal static class PageFactory
         long initPos = reader.Seek(Header.HeaderSize + (indexPage.PageID * BasePage.PageSize));
 
         if (reader.ReadByte() != (byte)PageType.Index)
-            throw new FileDBException("PageID {0} is not a Index Page", indexPage.PageID);
+            throw new BlobDatabaseException("PageID {0} is not a Index Page", indexPage.PageID);
 
         indexPage.NextPageID = reader.ReadUInt32();
         indexPage.NodeIndex = reader.ReadByte();
@@ -48,7 +48,7 @@ internal static class PageFactory
         long initPos = reader.Seek(Header.HeaderSize + (dataPage.PageID * BasePage.PageSize));
 
         if (reader.ReadByte() != (byte)PageType.Data)
-            throw new FileDBException("PageID {0} is not a Data Page", dataPage.PageID);
+            throw new BlobDatabaseException("PageID {0} is not a Data Page", dataPage.PageID);
 
         dataPage.NextPageID = reader.ReadUInt32();
         dataPage.IsEmpty = reader.ReadBoolean();

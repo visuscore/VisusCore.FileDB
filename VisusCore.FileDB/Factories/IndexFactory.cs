@@ -32,7 +32,7 @@ internal static class IndexFactory
                 : BinaryInsert(target, GetChildIndexNode(baseNode.Left, engine), engine);
         }
 
-        throw new FileDBException("Same GUID?!?");
+        throw new BlobDatabaseException("Same GUID?!?");
     }
 
     private static IndexNode GetChildIndexNode(IndexLink link, Engine engine)

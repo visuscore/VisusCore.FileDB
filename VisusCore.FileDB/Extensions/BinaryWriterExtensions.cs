@@ -36,7 +36,7 @@ internal static class BinaryWriterExtensions
             if (ex.IsLockException())
             {
                 if (tryCount >= DelayTryLockFile)
-                    throw new FileDBException("Database file is in lock for a long time");
+                    throw new BlobDatabaseException("Database file is in lock for a long time");
 
                 Thread.Sleep(tryCount * DelayTryLockFile);
 

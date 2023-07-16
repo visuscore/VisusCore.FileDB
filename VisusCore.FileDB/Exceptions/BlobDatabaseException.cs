@@ -5,28 +5,28 @@ using System.Runtime.Serialization;
 namespace VisusCore.FileDB.Exceptions;
 
 [Serializable]
-public class FileDBException : Exception
+public class BlobDatabaseException : Exception
 {
-    public FileDBException()
+    public BlobDatabaseException()
     {
     }
 
-    public FileDBException(string message, Exception innerException)
+    public BlobDatabaseException(string message, Exception innerException)
         : base(message, innerException)
     {
     }
 
-    public FileDBException(string message)
+    public BlobDatabaseException(string message)
         : base(message)
     {
     }
 
-    public FileDBException(string message, params object[] args)
+    public BlobDatabaseException(string message, params object[] args)
         : this(string.Format(CultureInfo.InvariantCulture, message, args))
     {
     }
 
-    protected FileDBException(SerializationInfo serializationInfo, StreamingContext streamingContext)
+    protected BlobDatabaseException(SerializationInfo serializationInfo, StreamingContext streamingContext)
         : base(serializationInfo, streamingContext)
     {
     }

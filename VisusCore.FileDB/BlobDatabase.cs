@@ -8,7 +8,7 @@ namespace VisusCore.FileDB;
 /// <summary>
 /// FileDB main class.
 /// </summary>
-public partial class FileDB : IDisposable
+public partial class BlobDatabase : IDisposable
 {
     private FileStream _fileStream;
     private Engine _engine;
@@ -29,11 +29,11 @@ public partial class FileDB : IDisposable
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileDB"/> class.
+    /// Initializes a new instance of the <see cref="BlobDatabase"/> class.
     /// </summary>
     /// <param name="fileName">Database filename (eg: C:\Data\MyDB.dat).</param>
     /// <param name="fileAccess">Acces mode (Read|ReadWrite|Write).</param>
-    public FileDB(string fileName, FileAccess fileAccess) =>
+    public BlobDatabase(string fileName, FileAccess fileAccess) =>
         Connect(fileName, fileAccess);
 
     private void Connect(string fileName, FileAccess fileAccess)
@@ -113,7 +113,7 @@ public partial class FileDB : IDisposable
     /// </summary>
     /// <param name="id">A Guid that references to file.</param>
     /// <returns>A FileDBStream ready to be readed or null if ID was not found.</returns>
-    public FileDBStream OpenRead(Guid id) =>
+    public BlobDatabaseStream OpenRead(Guid id) =>
         _engine.OpenRead(id);
 
     /// <summary>
@@ -195,7 +195,7 @@ public partial class FileDB : IDisposable
 
         CreateEmptyFile(tempFile, ignoreIfExists: false);
 
-        using (var tempDb = new FileDB(tempFile, FileAccess.ReadWrite))
+        using (var tempDb = new BlobDatabase(tempFile, FileAccess.ReadWrite))
         {
             foreach (var entry in entries)
             {

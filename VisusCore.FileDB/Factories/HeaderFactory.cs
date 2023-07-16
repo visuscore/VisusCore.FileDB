@@ -14,10 +14,10 @@ internal static class HeaderFactory
 
         // Make same validation on header file
         if (reader.ReadString(Header.FileID.Length) != Header.FileID)
-            throw new FileDBException("The file is not a valid storage archive");
+            throw new BlobDatabaseException("The file is not a valid storage archive");
 
         if (reader.ReadInt16() != Header.FileVersion)
-            throw new FileDBException("The archive version is not valid");
+            throw new BlobDatabaseException("The archive version is not valid");
 
         header.IndexRootPageID = reader.ReadUInt32();
         header.FreeIndexPageID = reader.ReadUInt32();

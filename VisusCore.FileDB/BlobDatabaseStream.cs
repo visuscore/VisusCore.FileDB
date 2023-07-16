@@ -5,7 +5,7 @@ using VisusCore.FileDB.Structure;
 
 namespace VisusCore.FileDB;
 
-public sealed class FileDBStream : Stream
+public sealed class BlobDatabaseStream : Stream
 {
     private readonly Engine _engine;
     private readonly long _streamLength;
@@ -32,7 +32,7 @@ public sealed class FileDBStream : Stream
         set => throw new NotSupportedException();
     }
 
-    internal FileDBStream(Engine engine, Guid id)
+    internal BlobDatabaseStream(Engine engine, Guid id)
     {
         _engine = engine;
 

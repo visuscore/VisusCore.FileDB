@@ -72,7 +72,7 @@ internal static class DataFactory
                 : GetNewDataPage(dataPage, engine);
 
             if (!dataPage.IsEmpty) // This is never to happend!!
-                throw new FileDBException("Page {0} is not empty", dataPage.PageID);
+                throw new BlobDatabaseException("Page {0} is not empty", dataPage.PageID);
 
             Array.Copy(buffer, dataPage.DataBlock, read);
             dataPage.IsEmpty = false;
@@ -81,7 +81,7 @@ internal static class DataFactory
 
         if (dataPage is null)
         {
-            throw new FileDBException($"{dataPage} is null.");
+            throw new BlobDatabaseException($"{dataPage} is null.");
         }
 
         // If the last page point to another one, i need to fix that
@@ -149,7 +149,7 @@ internal static class DataFactory
 
             // Point this last statent to first of next one
             if (lastPage.NextPageID != uint.MaxValue || !lastPage.IsEmpty) // This is never to happend!!
-                throw new FileDBException("The page is not empty");
+                throw new BlobDatabaseException("The page is not empty");
 
             // Update this last page to first new empty page
             lastPage.NextPageID = firstPageID;

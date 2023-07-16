@@ -6,7 +6,7 @@ using VisusCore.FileDB.Structure;
 
 namespace VisusCore.FileDB;
 
-public partial class FileDB
+public partial class BlobDatabase
 {
     /// <summary>
     /// Store a file inside the database.
@@ -30,7 +30,7 @@ public partial class FileDB
     /// <returns>EntryInfo with file information.</returns>
     public static EntryInfo Store(string dbFileName, string fileName, Stream input)
     {
-        using var db = new FileDB(dbFileName, FileAccess.ReadWrite);
+        using var db = new BlobDatabase(dbFileName, FileAccess.ReadWrite);
 
         return db.Store(fileName, input);
     }
@@ -44,7 +44,7 @@ public partial class FileDB
     /// <returns>EntryInfo with file information.</returns>
     public static EntryInfo Read(string dbFileName, Guid id, string fileName)
     {
-        using var db = new FileDB(dbFileName, FileAccess.Read);
+        using var db = new BlobDatabase(dbFileName, FileAccess.Read);
 
         return db.Read(id, fileName);
     }
@@ -58,7 +58,7 @@ public partial class FileDB
     /// <returns>EntryInfo with file information.</returns>
     public static EntryInfo Read(string dbFileName, Guid id, Stream output)
     {
-        using var db = new FileDB(dbFileName, FileAccess.Read);
+        using var db = new BlobDatabase(dbFileName, FileAccess.Read);
 
         return db.Read(id, output);
     }
@@ -70,7 +70,7 @@ public partial class FileDB
     /// <returns>Array with all files identities.</returns>
     public static EntryInfo[] ListFiles(string dbFileName)
     {
-        using var db = new FileDB(dbFileName, FileAccess.Read);
+        using var db = new BlobDatabase(dbFileName, FileAccess.Read);
 
         return db.ListFiles();
     }
@@ -83,7 +83,7 @@ public partial class FileDB
     /// <returns>True with found and delete the file, otherwise false.</returns>
     public static bool Delete(string dbFileName, Guid id)
     {
-        using var db = new FileDB(dbFileName, FileAccess.ReadWrite);
+        using var db = new BlobDatabase(dbFileName, FileAccess.ReadWrite);
 
         return db.Delete(id);
     }
@@ -107,7 +107,7 @@ public partial class FileDB
             if (ignoreIfExists)
                 return;
 
-            throw new FileDBException("Database file {0} already exists", dbFileName);
+            throw new BlobDatabaseException("Database file {0} already exists", dbFileName);
         }
 
         using var fileStream = new FileStream(dbFileName, FileMode.CreateNew, FileAccess.Write);
@@ -122,7 +122,7 @@ public partial class FileDB
     /// <param name="dbFileName">Path to database file (eg: C:\Temp\MyDB.dat).</param>
     public static void Shrink(string dbFileName)
     {
-        using var db = new FileDB(dbFileName, FileAccess.Read);
+        using var db = new BlobDatabase(dbFileName, FileAccess.Read);
 
         db.Shrink();
     }
@@ -135,7 +135,7 @@ public partial class FileDB
     /// <param name="filePattern">File Pattern. Use keys: {id} {extension} {filename}. Eg: "{filename}.{id}.{extension}".</param>
     public static void Export(string dbFileName, string directory, string filePattern)
     {
-        using var db = new FileDB(dbFileName, FileAccess.Read);
+        using var db = new BlobDatabase(dbFileName, FileAccess.Read);
 
         db.Export(directory, filePattern);
     }
