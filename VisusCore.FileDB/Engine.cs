@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using VisusCore.FileDB.Extensions;
 using VisusCore.FileDB.Factories;
 using VisusCore.FileDB.Helpers;
 using VisusCore.FileDB.Structure;
@@ -24,7 +23,7 @@ internal sealed class Engine : IDisposable
         if (stream.CanWrite)
         {
             Writer = new BinaryWriter(stream);
-            Writer.Lock(Header.LockerPos, 1);
+            //Writer.Lock(Header.LockerPos, 1);
         }
 
         Header = new Header();
@@ -206,7 +205,7 @@ internal sealed class Engine : IDisposable
                 if (Writer is not null)
                 {
                     // Unlock the file, prevent concurrence writing
-                    Writer.Unlock(Header.LockerPos, 1);
+                    //Writer.Unlock(Header.LockerPos, 1);
                     Writer.Close();
                 }
 

@@ -215,6 +215,13 @@ public partial class BlobDatabase : IDisposable
         Connect(dbFileName, fileAccess);
     }
 
+    public void Persist()
+    {
+        _engine?.PersistPages();
+        if (_fileStream.CanWrite)
+            _fileStream.Flush();
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (!_isDisposed)
