@@ -162,6 +162,11 @@ public partial class BlobDatabase : IDisposable
     /// <param name="filePattern">File Pattern. Use keys: {id} {extension} {filename}. Eg: "{filename}.{id}.{extension}".</param>
     public void Export(string directory, string filePattern)
     {
+        if (filePattern is null)
+        {
+            throw new ArgumentNullException(nameof(filePattern));
+        }
+
         if (!Directory.Exists(directory))
             Directory.CreateDirectory(directory);
 
